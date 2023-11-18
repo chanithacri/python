@@ -7,6 +7,10 @@
     "python cal.py": {
       "name": "python cal.py",
       "command": "python cal.py"
+    },
+    "python test.py": {
+      "name": "python test.py",
+      "command": "python test.py"
     }
   }
 }
