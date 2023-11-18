@@ -14,9 +14,9 @@ class Calculator:
         try:
             result = eval(self.input)
             return result
-        except:
+        except Exception:
             return "Invalid expression"
-        
+
 
 def process_input():
     print("Calculator is ready. Enter numbers or type '/help' for assistance.")
@@ -44,3 +44,4 @@ def process_input():
 
 if __name__ == "__main__":
     process_input()
+    
