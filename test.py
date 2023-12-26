@@ -1,33 +1,31 @@
-from multiprocessing import Process
-import os
+from multiprocessing import Process, Queue
 
-def calculate_square(numbers):
-    print(f"Square process PID: {os.getpid()}")
-    result = 0
-    for n in numbers:
-        result += n * n
-    print(f"Sum of squares: {result}")
+def sum_even_numbers(numbers, q):
+   even_sum = sum(num for num in numbers if num % 2 == 0)
+   q.put(even_sum)
 
-def calculate_cube(numbers):
-    print(f"Cube process PID: {os.getpid()}")
-    result = 0
-    for n in numbers:
-        result += n * n * n
-    print(f"Sum of cubes: {result}")
+def sum_odd_numbers(numbers, q):
+   odd_sum = sum(num for num in numbers if num % 2 != 0)
+   q.put(odd_sum)
+
+def calculate_total_sum(numbers):
+   q = Queue()
+   even_process = Process(target=sum_even_numbers, args=(numbers, q))
+   odd_process = Process(target=sum_odd_numbers, args=(numbers, q))
+   
+   even_process.start()
+   odd_process.start()
+   
+   even_process.join()
+   odd_process.join()
+   
+   even_sum = q.get()
+   odd_sum = q.get()
+   
+   total_sum = even_sum + odd_sum
+   print("Total sum is", total_sum)
+
 
 if __name__ == "__main__":
-    numbers = [1, 2, 3, 4]
-    
-    # Create two processes
-    p1 = Process(target=calculate_square, args=(numbers,))
-    p2 = Process(target=calculate_cube, args=(numbers,))
-    
-    # Start the processes
-    p1.start()
-    p2.start()
-    
-    # Wait for both processes to finish
-    p1.join()
-    p2.join()
-    
-    print(f"Main program PID: {os.getpid()}")
+   numbers = list(map(int, input().split()))
+   calculate_total_sum(numbers)
