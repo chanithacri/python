@@ -1,4 +1,3 @@
-# RainbowRosettes.py
 import turtle
 import colorsys
 t=turtle.Pen()
@@ -13,3 +12,4 @@ for x in range(number_of_circles):
     t.circle(150)
     t.left(360/number_of_circles)
     t.right(100)
+    
