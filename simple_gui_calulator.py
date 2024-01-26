@@ -1,5 +1,6 @@
 import tkinter as tk
 
+
 def click(event):
     text = event.widget.cget('text')
     if text == '=':
@@ -16,6 +17,7 @@ def click(event):
         screen.set(current_screen[:-1])
     else:
         screen.set(screen.get() + text)
+
 
 root = tk.Tk()
 root.geometry('350x400')
