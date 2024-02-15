@@ -69,6 +69,7 @@ if __name__ == "__main__":
         if user_input == "exit":
             print("Bye!")
             break
+        
         user_input_lst = user_input.split(" ")
         operation = user_input_lst[0]
 
