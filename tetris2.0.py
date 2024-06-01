@@ -27,14 +27,38 @@ COLORS = [
 
 # Tetromino shapes
 SHAPES = [
-    [[1, 1, 1, 1]],  # I
-    [[1, 1, 1], [0, 1, 0]],  # T
-    [[1, 1, 0], [0, 1, 1]],  # S
-    [[0, 1, 1], [1, 1, 0]],  # Z
-    [[1, 1], [1, 1]],  # O
-    [[1, 1, 1], [1, 0, 0]],  # L
-    [[1, 1, 1], [0, 0, 1]]   # J
+    [[1, 1, 1, 1],     # I
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0]],
+
+    [[1, 1, 1],        # T
+    [0, 1, 0],
+    [0, 0, 0]],
+
+    [[0, 1, 1],        # S
+    [1, 1, 0],
+    [0, 0, 0]],
+
+    [[1, 1, 0],        # Z
+    [0, 1, 1],
+    [0, 0, 0]],
+
+    [[1, 1],           # O
+    [1, 1]],
+
+    [[1, 1, 1],        # L
+    [1, 0, 0],
+    [0, 0, 0]],
+
+    [[1, 1, 1],        # J
+    [0, 0, 1],
+    [0, 0, 0]]
 ]
+
+# Rotate function for shapes
+def rotate(shape):
+    return [list(row) for row in zip(*shape[::-1])]
 
 # Screen setup
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -52,14 +76,12 @@ class Piece:
         self.rotation = 0
 
     def rotate(self):
-        self.rotation = (self.rotation + 1) % len(self.shape)
-
-    def image(self):
-        return self.shape[self.rotation]
+        self.rotation = (self.rotation + 1) % 4
+        self.shape = rotate(self.shape)
 
     def get_cells(self):
         cells = []
-        for i, row in enumerate(self.image()):
+        for i, row in enumerate(self.shape):
             for j, val in enumerate(row):
                 if val:
                     cells.append((self.x + j, self.y + i))
@@ -166,6 +188,7 @@ def main():
             running = False
 
     pygame.quit()
+
 
 if __name__ == "__main__":
     main()
