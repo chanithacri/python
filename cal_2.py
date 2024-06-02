@@ -65,9 +65,12 @@ class Calculator:
 if __name__ == "__main__":
     calculator = Calculator()
     while True:
-        user_input = input("Enter operation and 2 numbers exept for sin,cos,tan,log,clear,squer and saqurroot(exit to exit): ")
+        print("Welcome back!")
+        user_input = input("Enter operation and 2 numbers exept for sin,cos,tan,log,clear,squer and saqurroot. Type "
+                           "'exit' to exit: ")
         if user_input == "exit":
             print("Bye!")
+            print("Hope to see you soon!")
             break
         
         user_input_lst = user_input.split(" ")
