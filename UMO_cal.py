@@ -13,10 +13,10 @@ class Operations:
         return self.num_1 * self.num_2
 
     def division(self):
-        if self.num_2 != 0:
+        if self.num_2 != 0 and self.num_1:
             return self.num_1 / self.num_2
         else:
-            return "float division by zero"
+            return f"self.num_1 / self.num_2 \n float division by zero"
 
     def power(self):
         return self.num_1 ** self.num_2  
@@ -25,45 +25,49 @@ class Operations:
         return self.num_1 % self.num_2
 
 
+def get_num():
+    num_1 = input("Enter first number: ")
+    print(num_1)
+    num_2 = input("Enter second number: ")
+    print(num_2)
+    if num_1 == '#' or num_2 == '#':
+        return -1
+    if num_1.isdecimal() and num_2.isdecimal():
+        return float(num_1), float(num_2)
+
+
 def select_op(op):
     try:
         if op == "#":
             return -1
         else:
-            num_1 = input("Enter first number: ")
-            print(int(num_1))
-            num_2 = input("Enter second number: ")
-            print(num_2)
-            if num_1 or num_2 == "#":
-                return -1
+            num_1 , num_2 = get_num()
+            if op == "+":
+                print(f"{num_1} + {num_2} = {Operations(num_1, num_2).addition()}")
+            elif op == "-":
+                print(f"{num_1} - {num_2} = {Operations(num_1, num_2).subtraction()}")
+            elif op == "*":
+                print(f"{num_1} * {num_2} = {Operations(num_1, num_2).multiplication()}")
+            elif op == "/":
+                if num_1 != 0 and num_2 != 0:
+                    print(f"{num_1} / {num_2} = {Operations(num_1, num_2).division()}")
+                else:
+                    print("float division by zero")
+                    print(f"{num_1} / {num_2} = None")
+            elif op == "^":
+                print(f"{num_1} ^ {num_2} = {Operations(num_1, num_2).power()}")
+            elif op == "%":
+                print(f"{num_1} % {num_2} = {Operations(num_1, num_2).remainder()}")
+            elif op == "$":
+                # whatever you want to do when op == "$"
                 pass
             else:
-                num_1 = float(num_1)
-                num_2 = float(num_2)
-                if op == "+":
-                    print(f"{num_1} + {num_2} = {Operations(num_1, num_2).addition()}")
-                elif op == "-":
-                    print(f"{num_1} - {num_2} = {Operations(num_1, num_2).subtraction()}")
-                elif op == "*":
-                    print(f"{num_1} * {num_2} = {Operations(num_1, num_2).multiplication()}")
-                elif op == "/":
-                    if num_1 and num_2 != 0:
-                        print(f"{num_1} / {num_2} = {Operations(num_1, num_2).division()}")
-                    else:
-                        print(Operations(num_1, num_2).division())
-                        print(f"{num_1} / {num_2} = None")
-                elif op == "^":
-                    print(f"{num_1} ^ {num_2} = {Operations(num_1, num_2).power()}")
-                elif op == "%":
-                    print(f"{num_1} % {num_2} = {Operations(num_1, num_2).remainder()}")
-                elif op == "$":
-                    pass
-                else:
-                    print("inalid oparation")
-                    pass
+                print("Invalid operation")
     except ValueError:
         pass
-   
+    except ZeroDivisionError as e:
+        print(e)
+
 
 while True:
     print("Select operation.")
@@ -75,12 +79,9 @@ while True:
     print("6.Remainder: % ")
     print("7.Terminate: # ")
     print("8.Reset    : $ ")
-    
 
-    # take input from the user
     choice = input("Enter choice(+,-,*,/,^,%,#,$): ")
     print(choice)
     if(select_op(choice) == -1):
-        #program ends here
         print("Done. Terminating")
-        exit()
+        break
