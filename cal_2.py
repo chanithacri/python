@@ -68,8 +68,8 @@ class Calculator:
 
 if __name__ == "__main__":
     calculator = Calculator()
+    print("Welcome back!")
     while True:
-        print("Welcome back!")
         user_input = input("Enter operation and 2 numbers exept for sin,cos,tan,log,clear,squer and saqurroot. Type "
                            "'exit' to exit: ")
         if user_input == "exit":
@@ -101,8 +101,8 @@ if __name__ == "__main__":
             print(calculator.divide(n1, n2))
 
         elif operation == "**":
-            n1 = float(user_input[1])
-            n2 = float(user_input[2])
+            n1 = float(user_input_lst[1])
+            n2 = float(user_input_lst[2])
             print(calculator.power(n1, n2))
 
         elif operation == "clear":
@@ -131,6 +131,6 @@ if __name__ == "__main__":
         elif operation == "log":
             n1 = float(user_input_lst[1])
             print(calculator.log(n1))
-            
+
         else:
             print("Invalid operation!")
