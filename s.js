@@ -1,7 +1,3 @@
-
-Here's a simple JavaScript implementation for the snake game:
-
-```javascript
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 
@@ -114,6 +110,3 @@ document.addEventListener('keydown', function(e){
 });
 
 requestAnimationFrame(loop);
-```
-
-Please make sure to create an HTML file which includes a canvas element with the ID set to 'game' in order for this code to work. The code sets up the starting positions for the snake and apple in the game. It implements controls for the snake and also updates the position of the snake as well as the apple each time the snake eats the apple.
