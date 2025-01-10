@@ -1,1 +1,0 @@
-# Check wheather A Server Is Responding 
