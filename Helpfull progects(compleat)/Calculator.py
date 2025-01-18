@@ -23,6 +23,10 @@ class Calculator:
         else:
             print("Error: Division by zero.")
         return self.value
+    
+    def power(self, x ,y):
+        self.value = x ** y
+        return self.value 
 
     def clear(self):
         self.value = 0
@@ -64,8 +68,8 @@ class Calculator:
 
 if __name__ == "__main__":
     calculator = Calculator()
+    print("Welcome back!")
     while True:
-        print("Welcome back!")
         user_input = input("Enter operation and 2 numbers exept for sin,cos,tan,log,clear,squer and saqurroot. Type "
                            "'exit' to exit: ")
         if user_input == "exit":
@@ -80,37 +84,53 @@ if __name__ == "__main__":
             n1 = float(user_input_lst[1])
             n2 = float(user_input_lst[2])
             print(calculator.add(n1, n2))
+
         elif operation == "-":
             n1 = float(user_input_lst[1])
             n2 = float(user_input_lst[2])
             print(calculator.subtract(n1, n2))
+
         elif operation == "*":
             n1 = float(user_input_lst[1])
             n2 = float(user_input_lst[2])
             print(calculator.multiply(n1, n2))
+
         elif operation == "/":
             n1 = float(user_input_lst[1])
             n2 = float(user_input_lst[2])
             print(calculator.divide(n1, n2))
+
+        elif operation == "**":
+            n1 = float(user_input_lst[1])
+            n2 = float(user_input_lst[2])
+            print(calculator.power(n1, n2))
+
         elif operation == "clear":
             print(calculator.clear())
+
         elif operation == "square":
             n1 = float(user_input_lst[1])
             print(calculator.square(n1))
+
         elif operation == "square_root":
             n1 = float(user_input_lst[1])
             print(calculator.square_root(n1))
+
         elif operation == "sin":
             n1 = float(user_input_lst[1])
             print(calculator.sin(n1))
+
         elif operation == "cos":
             n1 = float(user_input_lst[1])
             print(calculator.cos(n1))
+
         elif operation == "tan":
             n1 = float(user_input_lst[1])
             print(calculator.tan(n1))
+
         elif operation == "log":
             n1 = float(user_input_lst[1])
             print(calculator.log(n1))
+
         else:
             print("Invalid operation!")
