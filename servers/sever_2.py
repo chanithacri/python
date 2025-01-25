@@ -1,6 +1,8 @@
 from flask import Flask, send_from_directory
 import os
 
+FLASK_DEBUG = os.getenv('FLASK_DEBUG', 'False').lower() in ['true', '1', 't']
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -16,4 +18,4 @@ def get_file(filename):
     return send_from_directory('.', filename, as_attachment=False)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8000)
+    app.run(debug=FLASK_DEBUG, host='0.0.0.0', port=8000)
