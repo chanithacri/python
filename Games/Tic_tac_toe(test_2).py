@@ -89,12 +89,23 @@ def save_training_data(board, move):
     np.savez("training_data.npz", X=np.array(X), y=np.array(y))
 
 # Self-train the model
-def self_train_model(model):
+def self_train_model(model, epochs=10):
     if os.path.exists("training_data.npz"):
         data = np.load("training_data.npz")
         X, y = data['X'], tf.keras.utils.to_categorical(data['y'], num_classes=9)
-        train_model(model, X, y)
+        print("Starting self-training...")
+        model.fit(X, y, epochs=epochs, batch_size=32, validation_split=0.2, verbose=1)
         model.save("tic_tac_toe_ai_v2.h5")
+
+# Select training mode
+def training_mode():
+    print("Select Training Mode:")
+    print("1. Preprocessed Data Training")
+    print("2. Self-Training with Saved Data")
+    print("3. Combined Training")
+    choice = input("Enter your choice (1/2/3): ").strip()
+
+    return choice
 
 # Play a game between human and AI
 def play_game(model):
@@ -126,9 +137,14 @@ def play_game(model):
                 input_data = np.array(board).reshape(1, -1)
                 prediction = model.predict(input_data, verbose=0).flatten()
                 possible_moves = [i for i in range(9) if board[i] == 0]
-                ai_move = max(possible_moves, key=lambda x: prediction[x])
-                board[ai_move] = 2
-                save_training_data(board[:], ai_move)  # Save the move for training
+                if possible_moves:
+                    ai_move = max(possible_moves, key=lambda x: prediction[x])
+                    board[ai_move] = 2
+                    save_training_data(board[:], ai_move)  # Save the move for training
+                else:
+                    print_board(board)
+                    print("No moves left! It's a draw!")
+                    break
 
             print_board(board)
             winner = check_winner(board)
@@ -170,11 +186,23 @@ def main():
         model = train_model(model, X, y)
         model.save("tic_tac_toe_ai_v1.h5")
 
-    # Perform self-training if training data exists
-    self_train_model(model)
+    choice = training_mode()
+
+    if choice == "1":
+        X, y = preprocess_data()
+        model = train_model(model, X, y)
+    elif choice == "2":
+        self_train_model(model, epochs=20)
+    elif choice == "3":
+        X, y = preprocess_data()
+        model = train_model(model, X, y)
+        self_train_model(model, epochs=10)
+    else:
+        print("Invalid choice. Proceeding with current model.")
 
     # Allow human to play against AI
     play_game(model)
 
 if __name__ == "__main__":
     main()
+    
