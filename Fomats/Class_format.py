@@ -32,4 +32,3 @@ class CalClass:
         self.value = self.num_1 * self.num_2
     
     # continue for all oparation
-    
